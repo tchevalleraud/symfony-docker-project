@@ -10,13 +10,16 @@
             <a href="{{ APP_URI }}/maildev" target="_blank">Maildev</a>
         </div>
         <div class="sf-toolbar-info-piece">
-            <a href="{{ APP_URI }}/" target="_blank">Minio</a>
+            <a href="{{ MINIO_CONSOLE }}" target="_blank">Minio</a>
         </div>
         <div class="sf-toolbar-info-piece">
             <a href="{{ APP_URI }}/phpmyadmin" target="_blank">PhpMyAdmin</a>
         </div>
         <div class="sf-toolbar-info-piece">
             <a href="{{ APP_URI }}/redis" target="_blank">Redis</a>
+        </div>
+        <div class="sf-toolbar-info-piece">
+            <a href="{{ APP_URI }}/api/docs" target="_blank">Swagger</a>
         </div>
     {% endset %}
     {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: true }) }}

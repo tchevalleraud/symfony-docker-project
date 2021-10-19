@@ -1,0 +1,29 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Symfony Docker Project - API",
+        "description": "Symfony Docker Project provides RESTful API service for external and internal applications.",
+        "contact": {
+            "email": "thibault.chevalleraud@gmail.com"
+        },
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/api/v2/",
+            "description": "Localhost"
+        }
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "operationId": "ad0d65623b6a95a66f9cdb1187c8d918",
+                "responses": {
+                    "200": {
+                        "description": "200 - OK"
+                    }
+                }
+            }
+        }
+    }
+}
