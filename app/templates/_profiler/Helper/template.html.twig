@@ -1,0 +1,23 @@
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+
+{% block toolbar %}
+    {% set icon %}
+        <span class="sf-toolbar-value">Helper</span>
+    {% endset %}
+
+    {% set text %}
+        <div class="sf-toolbar-info-piece">
+            <a href="{{ APP_URI }}/maildev" target="_blank">Maildev</a>
+        </div>
+        <div class="sf-toolbar-info-piece">
+            <a href="{{ APP_URI }}/" target="_blank">Minio</a>
+        </div>
+        <div class="sf-toolbar-info-piece">
+            <a href="{{ APP_URI }}/phpmyadmin" target="_blank">PhpMyAdmin</a>
+        </div>
+        <div class="sf-toolbar-info-piece">
+            <a href="{{ APP_URI }}/redis" target="_blank">Redis</a>
+        </div>
+    {% endset %}
+    {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: true }) }}
+{% endblock %}

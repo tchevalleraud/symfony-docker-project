@@ -1,0 +1,9 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    globals:
+        APP_NAME: '%env(resolve:APP_NAME)%'
+        APP_URI: '%env(resolve:APP_URI)%'
+
+when@test:
+    twig:
+        strict_variables: true
