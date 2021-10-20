@@ -24,14 +24,14 @@ write_var() {
 
 openBlock "coraxster/flysystem-aws-s3-v3-minio"
 write_var "MINIO_CONSOLE" $(read_var DOCKER_MINIO_CONSOLE .env)
-write_var "DOCKER_MINIO_ENDPOINT" $(read_var DOCKER_MINIO_ENDPOINT .env)
-write_var "DOCKER_MINIO_KEY" $(read_var DOCKER_MINIO_KEY .env)
-write_var "DOCKER_MINIO_SECRET" $(read_var DOCKER_MINIO_SECRET .env)
+write_var "MINIO_ENDPOINT" $(read_var DOCKER_MINIO_ENDPOINT .env)
+write_var "MINIO_KEY" $(read_var DOCKER_MINIO_KEY .env)
+write_var "MINIO_SECRET" $(read_var DOCKER_MINIO_SECRET .env)
 closeBlock "coraxster/flysystem-aws-s3-v3-minio"
 
 openBlock "doctrine/doctrine-bundle"
 write_var "DATABASE_LOCAL_URL" "sqlite:///%kernel.project_dir%/var/local.db"
-write_var "DATABASE_MYSQL_URL" "mysql://root:password1234@database:3306/symfony_docker_project"
+write_var "DATABASE_MYSQL_URL" "mysql://root:"$(read_var DOCKER_DATABASE_PASSWORD .env)"@database:3306/symfony_docker_project"
 closeBlock "doctrine/doctrine-bundle"
 
 openBlock "symfony/framework-bundle"

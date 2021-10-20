@@ -52,6 +52,7 @@ env/dev:
 	rm ./app/.env -f
 	cat env/.env >> .env
 	cat env/.env.dev >> .env
+	cat env/.env.dev.github >> .env
 	@bash env/app.sh
 
 env/local:
