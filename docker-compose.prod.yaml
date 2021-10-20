@@ -22,9 +22,7 @@ services:
   nginx:
     image: nginx:alpine
     links:
-      - maildev
       - php
-      - phpmyadmin
     ports:
       - "${DOCKER_NGINX_PORT}:80"
     restart: always
@@ -63,7 +61,6 @@ services:
     command: ['symfony', 'server:start', '--port=80']
     links:
       - database
-      - maildev
     restart: always
     volumes:
       - "./app/:/var/www"
