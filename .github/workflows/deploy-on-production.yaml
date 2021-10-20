@@ -58,8 +58,8 @@ jobs:
       - name: Build RSA Certificate
         run: |
           cd ./prod/
-          openssl genrsa -out ./config/jwt/private_key.pem 4096
-          openssl rsa -pubout -in config/jwt/private_key.pem -out config/jwt/public_key.pem
+          openssl genrsa -out ./app/config/jwt/private_key.pem 4096
+          openssl rsa -pubout -in ./app/config/jwt/private_key.pem -out ./app/config/jwt/public_key.pem
   deploy:
     runs-on: [production]
     needs: [build]
