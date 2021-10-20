@@ -41,6 +41,36 @@ doctrine/database/create:
 	$(sy) doctrine:database:create -c local
 	$(sy) doctrine:schema:update --force --em mysql
 
+env/dev:
+	@echo "################################"
+	@echo "# env/dev"
+	@echo "################################"
+	rm .env -f
+	rm ./app/.env -f
+	cat env/.env >> .env
+	cat env/.env.dev >> .env
+	@bash env/app.sh
+
+env/local:
+	@echo "################################"
+	@echo "# env/local"
+	@echo "################################"
+	rm .env -f
+	rm ./app/.env -f
+	cat env/.env >> .env
+	cat env/.env.local >> .env
+	@bash env/app.sh
+
+env/prod:
+	@echo "################################"
+	@echo "# env/prod"
+	@echo "################################"
+	rm .env -f
+	rm ./app/.env -f
+	cat env/.env >> .env
+	cat env/.env.prod >> .env
+	@bash env/app.sh
+
 public/assets:
 	@echo "################################"
 	@echo "# public/assets"
