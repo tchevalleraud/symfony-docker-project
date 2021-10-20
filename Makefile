@@ -25,6 +25,9 @@ help:
 	@$(call cyan,"server-stop") : ***
 	@$(call cyan,"vendor/autoload.php") : ***
 
+cache/clear:
+	$(sy) cache:clear
+
 docker-build:
 	@echo "################################"
 	@echo "# docker-build"

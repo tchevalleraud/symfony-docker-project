@@ -38,3 +38,44 @@ jobs:
           echo "DOCKER_MINIO_SECRET=${{ secrets.PROD_DOCKER_MINIO_SECRET}}" >> ./prod/env/.env.prod.github
           cd ./prod/
           make env/prod
+  build:
+    runs-on: [production]
+    needs: [init]
+    steps:
+      - name: Build docker image
+        run: |
+          cd ./prod/
+          make docker-build
+      - name: Build dependancies
+        run: |
+          cd ./prod/
+          make vendor/autoload.php
+          make public/assets
+      - name: Build swagger documentation
+        run: |
+          cd ./prod/
+          make swagger
+      - name: Build RSA Certificate
+        run: |
+          cd ./prod/
+          openssl genrsa -out ./config/jwt/private_key.pem 4096
+          openssl rsa -pubout -in config/jwt/private_key.pem -out config/jwt/public_key.pem
+  deploy:
+    runs-on: [production]
+    needs: [build]
+    steps:
+      - name: Start docker environment
+        run: |
+          cd ./prod/
+          make server-start
+          sleep 60
+          make server-restart
+          sleep 30
+      - name: Database deployment
+        run: |
+          cd ./prod/
+          make doctrine/database/create
+      - name: Cache clear
+        run: |
+          cd ./prod/
+          make cache/clear
