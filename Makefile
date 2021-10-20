@@ -69,6 +69,8 @@ env/prod:
 	rm ./app/.env -f
 	cat env/.env >> .env
 	cat env/.env.prod >> .env
+	touch env/.env.prod.github
+	cat env/.env.prod.github >> .env
 	@bash env/app.sh
 
 public/assets:

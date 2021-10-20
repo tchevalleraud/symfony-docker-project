@@ -29,3 +29,10 @@ jobs:
           mv symfony-docker-project/ prod/
           cd ./prod/
           git checkout master
+      - name: Update environment
+        run: |
+          rm -f env/.env.prod.github
+          touch env/.env.prod.github
+          echo "APP_SECRET=${{ secrets.PROD_APP_SECRET }}" >> env/.env.prod.github
+          echo "DOCKER_DATABASE_PASSWORD=${{ secrets.PROD_DOCKER_DATABASE_PASSWORD }}" >> env/.env.prod.github
+          echo "DOCKER_MINIO_SECRET=${{ secrets.PROD_DOCKER_MINIO_SECRET}}" >> env/.env.prod.github
