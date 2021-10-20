@@ -1,23 +1,23 @@
-name: Deploy on development server
+name: Deploy on production server
 on:
   push:
     branches:
-      - develop
+      - master
 jobs:
   init:
-    runs-on: [development]
+    runs-on: [production]
     steps:
       - name: Check directory exist
         id: check-directory
         continue-on-error: true
         run: |
-          cd ./dev/
+          cd ./prod/
           echo ::set-output name=exist::true
       - name: Update exist project
         if: steps.check-directory.outputs.exist == 'true'
         run: |
-          cd ./dev/
-          git checkout develop
+          cd ./prod/
+          git checkout master
           git add .
           git reset --hard
           git fetch origin --tags
@@ -26,6 +26,6 @@ jobs:
         if: steps.check-directory.outputs.exist != 'true'
         run: |
           git clone git@github.com:tchevalleraud/symfony-docker-project.git
-          mv symfony-docker-project/ dev/
-          cd ./dev/
-          git checkout develop
+          mv symfony-docker-project/ prod/
+          cd ./prod/
+          git checkout master
