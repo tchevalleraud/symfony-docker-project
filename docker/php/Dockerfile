@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:8.1-fpm
 
 ENV PANTHER_NO_SANDBOX 1
 ENV PANTHER_CHROME_ARGUMENTS='--disable-dev-shm-usage'
@@ -8,8 +8,7 @@ RUN apt-get update
 RUN apt-get install -y bash gnupg2 software-properties-common unzip wget
 RUN apt-get install -y libnss3 libx11-6 libzip-dev
 
-RUN docker-php-ext-install mysqli pdo pdo_mysql
-RUN docker-php-ext-install zip
+RUN docker-php-ext-install mysqli pdo pdo_mysql sockets zip
 
 RUN pecl install apcu && docker-php-ext-enable apcu
 RUN pecl install redis && docker-php-ext-enable redis
