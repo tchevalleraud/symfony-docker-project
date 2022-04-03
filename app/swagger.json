@@ -17,12 +17,32 @@
     "paths": {
         "/": {
             "get": {
+                "tags": [
+                    "Default"
+                ],
                 "operationId": "ad0d65623b6a95a66f9cdb1187c8d918",
                 "responses": {
                     "200": {
-                        "description": "200 - OK"
+                        "description": "200 - OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/components/schemas/Response200"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         }
     }

@@ -95,6 +95,7 @@ deploy/local:
 	@make openssl/genrsa
 	@make docker/compose/up
 	@make doctrine/database/create
+	@make doctrine/fixtures/load
 
 docker/build:
 	@echo "${PURPLE}################################################################################################"
@@ -152,6 +153,26 @@ docker/ps:
 	@echo "${PURPLE}################################################################################################"
 	@echo "${RESET}"
 	$(dc) ps
+
+doctrine/database/create:
+	@echo "${PURPLE}################################################################################################"
+	@echo "${PURPLE}#"
+	@echo "${PURPLE}# ${RESET}doctrine/database/create"
+	@echo "${PURPLE}#"
+	@echo "${PURPLE}################################################################################################"
+	@echo "${RESET}"
+	$(sy) doctrine:database:create -c mysql --if-not-exists
+	$(sy) doctrine:database:create -c local
+	$(sy) doctrine:schema:update --force --em mysql
+
+doctrine/fixtures/load:
+	@echo "${PURPLE}################################################################################################"
+	@echo "${PURPLE}#"
+	@echo "${PURPLE}# ${RESET}doctrine/fixtures/load"
+	@echo "${PURPLE}#"
+	@echo "${PURPLE}################################################################################################"
+	@echo "${RESET}"
+	$(sy) doctrine:fixtures:load -q
 
 env/dev:
 	@echo "${PURPLE}################################################################################################"

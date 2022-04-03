@@ -1,5 +1,10 @@
 monolog:
     handlers:
+        app:
+            type: stream
+            path: "%kernel.logs_dir%/app.%kernel.environment%.log"
+            level: debug
+            channels: ["!console", "!doctrine", "!event", "!php", "!request", "!security"]
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{{ APP_NAME }}{% endblock %}</title>
+        <link rel="shortcut icon" href="{{ asset('assets/favicons/favicon.svg') }}" />
+        {% block stylesheets %}
+            <link href="{{ asset('assets/css/bootstrap/bootstrap.css') }}" rel="stylesheet" type="text/css">
+        {% endblock %}
+    </head>
+    <body>
+        <div class="container-fluid">
+            {% block body %}{% endblock %}
+        </div>
+
+        {% block javascripts %}
+            <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
+            <script src="{{ asset('assets/js/bootstrap/bootstrap.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>
