@@ -1,3 +1,7 @@
+###> firebase/php-jwt ###
+/config/jwt/*.pem
+###< firebase/php-jwt ###
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php

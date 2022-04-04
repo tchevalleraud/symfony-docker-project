@@ -46,5 +46,5 @@ write_var "MAILER_DSN" $(read_var MAILER_DSN .env)
 closeBlock "symfony/mailer"
 
 openBlock "symfony/messenger"
-write_var "MESSENGER_TRANSPORT_DNS" $(read_var MESSENGER_TRANSPORT_DNS .env)
+write_var "MESSENGER_TRANSPORT_DSN" $(read_var MESSENGER_TRANSPORT_DSN .env)
 closeBlock "symfony/messenger"

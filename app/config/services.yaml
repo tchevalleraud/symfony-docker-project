@@ -11,6 +11,23 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
+    App\Application\Monolog\Channels\AppAPIChannel:
+        arguments: ["@logger"]
+        tags:
+            - { name: monolog.logger, channel: "APP.API" }
+
+    App\Application\Monolog\Channels\AppFrontOfficeChannel:
+        arguments: ["@logger"]
+        tags:
+            - { name: monolog.logger, channel: "APP.FRONTOFFICE" }
+
+    App\Application\Monolog\LoggerManager:
+        class: app\Application\Monolog\LoggerManager
+
+    App\Application\Subscriber\RequestSubscriber:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
+
     App\Infrastructure\Profiler\HelperProfiler:
         tags:
             - name: Helper

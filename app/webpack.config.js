@@ -8,10 +8,11 @@ Encore
     .setOutputPath('public/assets/')
     .setPublicPath('/assets')
     .enableVersioning()
-    .copyFiles({
-        from: './assets',
-        to: '[path][name].[ext]'
-    })
+    .addEntry('app', './assets/app.js')
+    .addEntry('app_backoffice_security', './assets/app_backoffice_security.js')
+    .copyFiles({from: './assets/favicon', to: 'favicon/[path][name].[ext]'})
+    .copyFiles({from: './assets/images', to: 'images/[path][name].[ext]'})
+    .enableStimulusBridge('./assets/controllers.json')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
@@ -26,6 +27,7 @@ Encore
         config.corejs = 3;
     })
     .enableSassLoader()
+    .enablePostCssLoader()
     .autoProvidejQuery();
 
 module.exports = Encore.getWebpackConfig();

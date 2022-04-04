@@ -12,17 +12,24 @@
     class DashboardController extends APIExtendController {
 
         /**
-         * @Route("/", name="index", methods={"GET"})
          * @OA\Get(
          *     path="/",
+         *     security={{"bearerAuth":{}}},
+         *     tags={"Default"},
          *     @OA\Response(
          *         response=200,
-         *         description="200 - OK"
+         *         description="200 - OK",
+         *         @OA\JsonContent(
+         *             @OA\Property(property="response", type="array", @OA\Items(), ref="#/components/schemas/Response200")
+         *         )
          *     )
          * )
+         * @Route("/", name="index", methods={"GET"})
          */
         public function index(){
-            return new JsonResponse([]);
+            return new JsonResponse([
+                'date'  => (new \DateTime())->format("Y/m/d H:i:s")
+            ]);
         }
 
     }

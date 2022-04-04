@@ -1,28 +1,59 @@
 security:
-    # https://symfony.com/doc/current/security/authenticator_manager.html
+    access_control:
+        - { path: ^/(fr|en)/admin/login.html, roles: PUBLIC_ACCESS }
+        - { path: ^/(fr|en)/admin, roles: ROLE_USER }
+        - { path: ^/(fr|en)/manage/login.html, roles: PUBLIC_ACCESS }
+        - { path: ^/(fr|en)/manage, roles: ROLE_USER }
+
     enable_authenticator_manager: true
-    # https://symfony.com/doc/current/security.html#c-hashing-passwords
-    password_hashers:
-        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
-    providers:
-        users_in_memory: { memory: null }
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            lazy: true
-            provider: users_in_memory
+        api_v2_login:
+            pattern: ^/api/v2/login
+            security: false
+        api_v2:
+            custom_authenticators:
+                - App\Application\Security\APIV2Authenticator
+            pattern: ^/api/v2/
+            provider: system_apiv2_provider
+        adminoffice:
+            form_login:
+                always_use_default_target_path: true
+                check_path: adminoffice.security.login
+                default_target_path: adminoffice.dashboard.index
+                enable_csrf: true
+                login_path: adminoffice.security.login
+            logout:
+                path: backoffice.security.logout
+            pattern: ^/(fr|en)/manage/
+            provider: system_user_email_provider
+        backoffice:
+            form_login:
+                always_use_default_target_path: true
+                check_path: backoffice.security.login
+                default_target_path: backoffice.dashboard.index
+                enable_csrf: true
+                login_path: backoffice.security.login
+            logout:
+                path: backoffice.security.logout
+            pattern: ^/(fr|en)/admin/
+            provider: system_user_email_provider
 
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#firewalls-authentication
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
 
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
-
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
-    access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+    providers:
+        system_apiv2_provider:
+            chain:
+                providers: [system_user_id_provider]
+        system_user_email_provider:
+            entity:
+                class: App\Domain\_mysql\System\Entity\User
+                property: email
+        system_user_id_provider:
+            entity:
+                class: App\Domain\_mysql\System\Entity\User
+                property: id
