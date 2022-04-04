@@ -1,4 +1,4 @@
-{% extends "BackOffice/Security/base.html.twig" %}
+{% extends "AdminOffice/Security/base.html.twig" %}
 
 {% block title %}Login - {{ parent() }}{% endblock %}
 
@@ -8,9 +8,10 @@
             <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
-        <form action="{{ path('backoffice.security.login') }}" method="post">
+        <form action="{{ path('adminoffice.security.login') }}" method="post">
             <img class="mb-4" src="{{ asset('assets/images/icons/symfony.png') }}" alt="" width="200" height="175">
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <h3 class="h5 mb-3 fw-normal">Management</h3>
 
             <div class="form-floating">
                 <input type="email" class="form-control" id="username" name="_username" value="{{ last_username }}" placeholder="name@example.com"/>

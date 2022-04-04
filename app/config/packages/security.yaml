@@ -2,6 +2,8 @@ security:
     access_control:
         - { path: ^/(fr|en)/admin/login.html, roles: PUBLIC_ACCESS }
         - { path: ^/(fr|en)/admin, roles: ROLE_USER }
+        - { path: ^/(fr|en)/manage/login.html, roles: PUBLIC_ACCESS }
+        - { path: ^/(fr|en)/manage, roles: ROLE_USER }
 
     enable_authenticator_manager: true
 
@@ -17,6 +19,17 @@ security:
                 - App\Application\Security\APIV2Authenticator
             pattern: ^/api/v2/
             provider: system_apiv2_provider
+        adminoffice:
+            form_login:
+                always_use_default_target_path: true
+                check_path: adminoffice.security.login
+                default_target_path: adminoffice.dashboard.index
+                enable_csrf: true
+                login_path: adminoffice.security.login
+            logout:
+                path: backoffice.security.logout
+            pattern: ^/(fr|en)/manage/
+            provider: system_user_email_provider
         backoffice:
             form_login:
                 always_use_default_target_path: true

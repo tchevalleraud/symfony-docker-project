@@ -2,10 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}{{ APP_NAME }}{% endblock %}</title>
-        <link rel="shortcut icon" href="{{ asset('assets/favicons/favicon.svg') }}" />
+        <title>{% block title %}{{ APP_NAME | upperword }}{% endblock %}</title>
+        <link rel="shortcut icon" href="{{ asset('assets/favicon/favicon.ico') }}" />
         {% block stylesheets %}
-            <link href="{{ asset('assets/css/bootstrap/bootstrap.css') }}" rel="stylesheet" type="text/css">
+            {{ encore_entry_link_tags('app') }}
         {% endblock %}
     </head>
     <body>
@@ -13,7 +13,7 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ NAVBAR_BRAND_HREF is defined ? NAVBAR_BRAND_HREF : path('root') }}">
                     {% block NAVBAR_BRAND %}
-                        <img src="{{ asset('assets/favicons/favicon.svg') }}" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                        <img src="{{ asset('assets/images/icons/symfony.png') }}" alt="" width="30" height="27" class="d-inline-block align-text-top">
                         {{ APP_NAME | upperword }}
                     {% endblock %}
                 </a>
@@ -30,8 +30,7 @@
         </div>
 
         {% block javascripts %}
-            <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
-            <script src="{{ asset('assets/js/bootstrap/bootstrap.js') }}"></script>
+            {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </body>
 </html>
