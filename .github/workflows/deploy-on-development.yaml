@@ -45,7 +45,7 @@ jobs:
       - name: Build docker image
         run: |
           cd ./dev/
-          make docker-build
+          make docker/build
       - name: Build dependancies
         run: |
           cd ./dev/
