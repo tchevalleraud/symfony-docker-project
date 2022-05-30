@@ -1,5 +1,5 @@
 <?php
-    namespace App\Application\Twg;
+    namespace App\Application\Twig;
 
     use Twig\Extension\AbstractExtension;
     use Twig\TwigFilter;
