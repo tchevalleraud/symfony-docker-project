@@ -54,7 +54,7 @@ jobs:
       - name: Build swagger documentation
         run: |
           cd ./dev/
-          make swagger
+          # make swagger
       - name: Build RSA Certificate
         run: |
           cd ./dev/
