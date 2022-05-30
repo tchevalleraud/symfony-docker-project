@@ -51,6 +51,10 @@ jobs:
           cd ./dev/
           make vendor/autoload.php
           make public/assets
+      - name: Build swagger documentation
+        run: |
+          cd ./dev/
+          make swagger
       - name: Build RSA Certificate
         run: |
           cd ./dev/

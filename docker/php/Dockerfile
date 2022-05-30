@@ -1,8 +1,10 @@
-FROM php:fpm
+FROM php:8.1-fpm
 
 ENV PANTHER_NO_SANDBOX 1
 ENV PANTHER_CHROME_ARGUMENTS='--disable-dev-shm-usage'
 ENV PANTHER_CHROME_DRIVER_BINARY /usr/lib/chromium/chromedriver
+
+RUN CFLAGS="$CFLAGS -D_GNU_SOURCE" docker-php-ext-install sockets
 
 RUN apt-get update
 RUN apt-get install -y bash gnupg2 software-properties-common unzip wget
