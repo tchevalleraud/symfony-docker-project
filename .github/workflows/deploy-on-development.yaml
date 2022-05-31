@@ -49,7 +49,7 @@ jobs:
       - name: Build dependancies
         run: |
           cd ./dev/
-          make vendor/autoload.php
+          make composer/update
           make public/assets
       - name: Build swagger documentation
         run: |

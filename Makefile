@@ -80,7 +80,7 @@ composer/update:
 	@echo "${PURPLE}#"
 	@echo "${PURPLE}################################################################################################"
 	@echo "${RESET}"
-	$(php) composer update
+	$(php) composer update --no-interaction
 
 deploy/local:
 	@echo "${PURPLE}################################################################################################"
