@@ -67,10 +67,7 @@ jobs:
       - name: Start docker environment
         run: |
           cd ./dev/
-          make server-start
-          sleep 60
-          make server-restart
-          sleep 30
+          make docker/compose/up
       - name: Database deployment
         run: |
           cd ./dev/
