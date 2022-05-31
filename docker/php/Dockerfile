@@ -1,4 +1,4 @@
-FROM php:8.1-fpm
+FROM php:8.0-fpm
 
 ENV PANTHER_NO_SANDBOX 1
 ENV PANTHER_CHROME_ARGUMENTS='--disable-dev-shm-usage'
