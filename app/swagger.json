@@ -45,5 +45,50 @@
                 ]
             }
         }
+    },
+    "components": {
+        "schemas": {
+            "DateTime": {
+                "allOf": [
+                    {
+                        "properties": {
+                            "date": {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            "timezone_type": {
+                                "type": "integer",
+                                "default": "3"
+                            },
+                            "timezone": {
+                                "type": "string",
+                                "default": "UTC"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "Response200": {
+                "allOf": [
+                    {
+                        "properties": {
+                            "code": {
+                                "type": "integer",
+                                "default": "200"
+                            },
+                            "datetime": {
+                                "$ref": "#/components/schemas/DateTime"
+                            },
+                            "message": {
+                                "type": "string",
+                                "default": "OK"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            }
+        }
     }
 }

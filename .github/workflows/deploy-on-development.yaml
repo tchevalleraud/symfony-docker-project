@@ -17,7 +17,7 @@ jobs:
         if: steps.check-directory.outputs.exist == 'true'
         run: |
           cd ./dev/
-          git checkout master
+          git checkout develop
           git add .
           git reset --hard
           git fetch origin --tags
@@ -28,7 +28,7 @@ jobs:
           git clone git@github.com:tchevalleraud/symfony-docker-project.git
           mv symfony-docker-project/ dev/
           cd ./dev/
-          git checkout master
+          git checkout develop
       - name: Update environment
         run: |
           rm -f ./dev/env/.env.dev.github
@@ -45,11 +45,11 @@ jobs:
       - name: Build docker image
         run: |
           cd ./dev/
-          make docker-build
+          make docker/build
       - name: Build dependancies
         run: |
           cd ./dev/
-          make vendor/autoload.php
+          make composer/update
           make public/assets
       - name: Build swagger documentation
         run: |
@@ -67,10 +67,7 @@ jobs:
       - name: Start docker environment
         run: |
           cd ./dev/
-          make server-start
-          sleep 60
-          make server-restart
-          sleep 30
+          make docker/compose/up
       - name: Database deployment
         run: |
           cd ./dev/

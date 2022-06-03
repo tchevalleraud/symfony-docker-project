@@ -32,6 +32,7 @@ help:
 	@echo "${PURPLE}# Docker command"
 	@echo "${BLUE}docker/build${RESET} : Permet la recuperation et la creation des differentes images."
 	@echo "${BLUE}docker/compose/down${RESET} : "
+	@echo "${BLUE}docker/compose/reset${RESET} : "
 	@echo "${BLUE}docker/compose/up${RESET} : "
 	@echo "${BLUE}docker/logs${RESET} : "
 	@echo "${BLUE}docker/ps${RESET} : "
@@ -79,7 +80,7 @@ composer/update:
 	@echo "${PURPLE}#"
 	@echo "${PURPLE}################################################################################################"
 	@echo "${RESET}"
-	$(php) composer update
+	$(php) composer update --no-interaction
 
 deploy/local:
 	@echo "${PURPLE}################################################################################################"
@@ -116,6 +117,16 @@ docker/compose/down:
 	@echo "${PURPLE}################################################################################################"
 	@echo "${RESET}"
 	$(dc) down
+
+docker/compose/reset:
+	@echo "${PURPLE}################################################################################################"
+	@echo "${PURPLE}#"
+	@echo "${PURPLE}# ${RESET}docker/compose/reset"
+	@echo "${PURPLE}#"
+	@echo "${PURPLE}################################################################################################"
+	@echo "${RESET}"
+	@make docker/compose/down
+	@make docker/compose/up
 
 docker/compose/restart:
 	@echo "${PURPLE}################################################################################################"
@@ -161,6 +172,7 @@ doctrine/database/create:
 	@echo "${PURPLE}#"
 	@echo "${PURPLE}################################################################################################"
 	@echo "${RESET}"
+	@sleep 30
 	$(sy) doctrine:database:create -c mysql --if-not-exists
 	$(sy) doctrine:database:create -c local
 	$(sy) doctrine:schema:update --force --em mysql
