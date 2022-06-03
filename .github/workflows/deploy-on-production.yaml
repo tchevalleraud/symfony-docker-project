@@ -76,3 +76,7 @@ jobs:
         run: |
           cd ./prod/
           make cache/clear
+      - name: Update permission
+        run: |
+          cd ./prod/
+          chmod 777 var/ -Rf

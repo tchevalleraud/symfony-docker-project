@@ -76,3 +76,7 @@ jobs:
         run: |
           cd ./dev/
           make cache/clear
+      - name: Update permission
+        run: |
+          cd ./dev/
+          chmod 777 var/ -Rf
