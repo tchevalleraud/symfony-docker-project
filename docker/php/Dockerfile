@@ -1,5 +1,8 @@
 FROM php:8.0-fpm
 
+ARG USER_ID
+ARG GROUP_ID
+
 ENV PANTHER_NO_SANDBOX 1
 ENV PANTHER_CHROME_ARGUMENTS='--disable-dev-shm-usage'
 ENV PANTHER_CHROME_DRIVER_BINARY /usr/lib/chromium/chromedriver
@@ -7,7 +10,7 @@ ENV PANTHER_CHROME_DRIVER_BINARY /usr/lib/chromium/chromedriver
 RUN CFLAGS="$CFLAGS -D_GNU_SOURCE" docker-php-ext-install sockets
 
 RUN apt-get update
-RUN apt-get install -y bash gnupg2 software-properties-common unzip wget
+RUN apt-get install -y bash git gnupg2 software-properties-common unzip wget
 RUN apt-get install -y libnss3 libx11-6 libzip-dev
 
 RUN docker-php-ext-install mysqli pdo pdo_mysql sockets zip
@@ -36,6 +39,10 @@ RUN rm chromedriver_linux64.zip
 
 ADD ./xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 ADD ./error_reporting.ini /usr/local/etc/php/conf.d/error_reporting.ini
+
+RUN groupadd -f --gid $GROUP_ID user
+RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
+USER user
 
 EXPOSE 80
 
