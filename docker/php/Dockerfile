@@ -44,6 +44,6 @@ RUN groupadd -f --gid $GROUP_ID user
 RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
 USER user
 
-EXPOSE 80
+EXPOSE 9000
 
 WORKDIR /var/www

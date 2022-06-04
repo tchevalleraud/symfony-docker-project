@@ -60,7 +60,7 @@ services:
       args:
         USER_ID: ${USER_ID}
         GROUP_ID: ${GROUP_ID}
-    command: ['symfony', 'server:start', '--port=80']
+    command: ['symfony', 'server:start', '--port=9000']
     links:
       - database
       - maildev
