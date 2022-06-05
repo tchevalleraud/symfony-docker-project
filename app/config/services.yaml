@@ -22,7 +22,7 @@ services:
             - { name: monolog.logger, channel: "APP.FRONTOFFICE" }
 
     App\Application\Monolog\LoggerManager:
-        class: app\Application\Monolog\LoggerManager
+        class: App\Application\Monolog\LoggerManager
 
     App\Application\Subscriber\RequestSubscriber:
         tags:
