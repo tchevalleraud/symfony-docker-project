@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[4049],{4403:function(s){s.exports=JSON.parse('{"label":"docusaurus","permalink":"/symfony-docker-project/en/blog/tags/docusaurus","allTagsPath":"/symfony-docker-project/en/blog/tags","count":4}')}}]);
