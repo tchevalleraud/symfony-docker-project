@@ -18,8 +18,20 @@
     </php>
 
     <testsuites>
-        <testsuite name="Project Test Suite">
+        <testsuite name="All">
             <directory>tests</directory>
+        </testsuite>
+        <testsuite name="API">
+            <directory>tests/ApiTestCase</directory>
+        </testsuite>
+        <testsuite name="Panther">
+            <directory>tests/PantherTestCase</directory>
+        </testsuite>
+        <testsuite name="Unit">
+            <directory>tests/TestCase</directory>
+        </testsuite>
+        <testsuite name="Web">
+            <directory>tests/WebTestCase</directory>
         </testsuite>
     </testsuites>
 
@@ -33,10 +45,7 @@
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
 
-    <!-- Run `composer require symfony/panther` before enabling this extension -->
-    <!--
     <extensions>
         <extension class="Symfony\Component\Panther\ServerExtension" />
     </extensions>
-    -->
 </phpunit>

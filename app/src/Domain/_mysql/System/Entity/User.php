@@ -25,10 +25,10 @@
         /**
          * @ORM\Column(type="string", length=180, unique=true)
          */
-        private $email;
+        private $username;
 
         /**
-         * @ORM\Column(type="string")
+         * @ORM\Column(type="string", nullable=true)
          */
         private $password;
 
@@ -42,7 +42,14 @@
          */
         private $roles = [];
 
+        /**
+         * @ORM\Column(type="string")
+         */
+        private $source;
+
         public function __construct() {
+            $this->setApiToken(implode('-', str_split(substr(strtolower(md5(microtime().rand(1000, 9999))), 0, 30), 6)));
+            $this->setSource("local");
         }
 
         public function getId(): ?string {
@@ -54,17 +61,17 @@
             return $this;
         }
 
-        public function getEmail(): ?string {
-            return $this->email;
+        public function getUsername() {
+            return $this->username;
         }
 
-        public function setEmail($email): self {
-            $this->email = $email;
+        public function setUsername($username): self {
+            $this->username = $username;
             return $this;
         }
 
         public function getUserIdentifier(): string {
-            return $this->getEmail();
+            return $this->getUsername();
         }
 
         public function getPassword(): ?string {
@@ -98,6 +105,15 @@
 
         public function setRoles(array $roles): self {
             $this->roles = $roles;
+            return $this;
+        }
+
+        public function getSource() {
+            return $this->source;
+        }
+
+        public function setSource($source): self {
+            $this->source = $source;
             return $this;
         }
 

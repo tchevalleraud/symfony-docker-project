@@ -2,6 +2,7 @@
     namespace App\UI\AdminOffice;
 
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+    use Symfony\Component\HttpFoundation\Session\SessionInterface;
     use Symfony\Component\Routing\Annotation\Route;
 
     /**
@@ -12,7 +13,7 @@
         /**
          * @Route(".html", name="index", methods={"GET"})
          */
-        public function index(){
+        public function index(SessionInterface $session){
             return $this->render("AdminOffice/Dashboard/index.html.twig");
         }
 

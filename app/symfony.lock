@@ -154,6 +154,9 @@
     "phar-io/version": {
         "version": "3.1.0"
     },
+    "php-webdriver/webdriver": {
+        "version": "1.12.1"
+    },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
     },
@@ -421,6 +424,9 @@
     "symfony/intl": {
         "version": "v5.3.8"
     },
+    "symfony/ldap": {
+        "version": "v6.1.0"
+    },
     "symfony/mailer": {
         "version": "5.3",
         "recipe": {
@@ -489,6 +495,15 @@
     },
     "symfony/options-resolver": {
         "version": "v5.3.7"
+    },
+    "symfony/panther": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "877d853a05c6713665a2f4b954734592680abff6"
+        }
     },
     "symfony/password-hasher": {
         "version": "v5.3.8"

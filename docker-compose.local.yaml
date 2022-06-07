@@ -4,6 +4,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DOCKER_DATABASE_PASSWORD}
     image: mysql
+    ports:
+      - "3306:3306"
     restart: always
     volumes:
       - vdata_database:/var/lib/mysql

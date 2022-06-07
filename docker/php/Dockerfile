@@ -1,4 +1,4 @@
-FROM php:8.0-fpm
+FROM php:8.1-fpm
 
 ARG USER_ID
 ARG GROUP_ID
@@ -11,9 +11,9 @@ RUN CFLAGS="$CFLAGS -D_GNU_SOURCE" docker-php-ext-install sockets
 
 RUN apt-get update
 RUN apt-get install -y bash git gnupg2 software-properties-common unzip wget
-RUN apt-get install -y libnss3 libx11-6 libzip-dev
+RUN apt-get install -y libldap2-dev libnss3 libx11-6 libzip-dev
 
-RUN docker-php-ext-install mysqli pdo pdo_mysql sockets zip
+RUN docker-php-ext-install ldap mysqli pdo pdo_mysql sockets zip
 
 RUN pecl install apcu && docker-php-ext-enable apcu
 RUN pecl install redis && docker-php-ext-enable redis
@@ -36,6 +36,8 @@ RUN wget https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.z
 RUN unzip chromedriver_linux64.zip
 RUN mv chromedriver /usr/local/bin/chromedriver
 RUN rm chromedriver_linux64.zip
+
+ADD php.ini /usr/local/etc/php/php.ini
 
 ADD ./xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 ADD ./error_reporting.ini /usr/local/etc/php/conf.d/error_reporting.ini
