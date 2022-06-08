@@ -8,17 +8,20 @@
 {% endblock %}
 
 {% block NAVBAR_COLLAPSE %}
+    {% set activeRoute = app.request.attributes.get('_route') %}
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{ path('adminoffice.dashboard.index') }}">Dashboard</a>
+            <a class="nav-link {{ 'adminoffice.dashboard.' in activeRoute ? 'active' }}" aria-current="page" href="{{ path('adminoffice.dashboard.index') }}">Dashboard</a>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle {{ 'adminoffice.authentication.' in activeRoute ? 'active' }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Authentication
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">LDAP</a></li>
-                <li><a class="dropdown-item" href="#">Local Database</a></li>
+                <li><a class="dropdown-item {{ 'adminoffice.authentication.overall.' in activeRoute ? 'active' }}" href="{{ path('adminoffice.authentication.overall.index') }}">Overall</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item {{ 'adminoffice.authentication.ldap.' in activeRoute ? 'active' }}" href="{{ path('adminoffice.authentication.ldap.index') }}">LDAP</a></li>
+                <li><a class="dropdown-item {{ 'adminoffice.authentication.local.' in activeRoute ? 'active' }}" href="{{ path('adminoffice.authentication.local.index') }}">Local Database</a></li>
             </ul>
         </li>
     </ul>

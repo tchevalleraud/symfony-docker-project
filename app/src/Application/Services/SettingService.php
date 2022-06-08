@@ -35,4 +35,21 @@
             throw new \Exception("Erreur");
         }
 
+        public function setSeeting($key, $value, $type = null){
+            $setting = $this->entityManager->getRepository(Setting::class)->findOneBy(['setting' => $key]);
+            if($setting){
+                if($type !== null) $setting->setType($type);
+
+                if($setting->getType() == "boolean"){
+                    die('boolean');
+                } elseif($setting->getType() == "integer"){
+                    if($value == null) $setting->setValue('NULL');
+                    else $setting->setValue($value);
+                }
+            }
+
+            $this->entityManager->persist($setting);
+            $this->entityManager->flush();
+        }
+
     }

@@ -108,7 +108,7 @@ deploy/local:
 	@make openssl/genrsa
 	@make docker/compose/up
 	@make doctrine/database/create
-	@make doctrine/fixtures/load
+	@make console app:system:init
 
 docker/build:
 	@echo "${PURPLE}################################################################################################"

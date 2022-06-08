@@ -136,7 +136,7 @@
         }
 
         public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response {
-            return new RedirectResponse($request->getSession()->getBag('attributes')->get('_security.backoffice.target_path'));
+            return new RedirectResponse($request->getSession()->getBag('attributes')->get('_security.'.$firewallName.'.target_path'));
         }
 
         public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response {
