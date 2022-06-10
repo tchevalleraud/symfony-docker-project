@@ -25,9 +25,9 @@
                 </div>
             </div>
         </nav>
-        <div class="container-fluid">
-            {% block body %}{% endblock %}
-        </div>
+        {% block body '' %}
+
+        {% block toasts '' %}
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}

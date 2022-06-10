@@ -43,18 +43,24 @@
                 return;
             }
 
-            $this->session->remove('_security.idle');
-            $this->session->remove('_security.idle.remaining');
+            $lastUsed = $this->session->get('_security.idle.last_used');
+            if($lastUsed === null){
+                $this->session->set('_security.idle.last_used', time());
+                $lastUsed = time();
+            }
 
             if($this->maxIdleTime > 0){
                 $this->session->start();
-                $lapse = time() - $this->session->getMetadataBag()->getLastUsed();
+
+                $lapse = time() - $lastUsed;
                 if ($lapse > $this->maxIdleTime) {
                     $this->tokenStorage->setToken(null);
+                    $this->session->set('_security.idle.last_used', null);
                     $event->setResponse(new RedirectResponse($this->router->generate('root')));
                 } else {
                     $this->session->set('_security.idle', $lapse);
-                    $this->session->set('_security.idle.remaining', $this->maxIdleTime - $lapse);
+                    $this->session->set('_security.idle.last_used', time());
+                    $this->session->set('_security.idle.remaining', $this->maxIdleTime);
                 }
             }
         }

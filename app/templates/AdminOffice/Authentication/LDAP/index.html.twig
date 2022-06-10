@@ -1,40 +1,45 @@
-{% extends "AdminOffice/base.html.twig" %}
+{% extends "AdminOffice/Authentication/LDAP/_base.html.twig" %}
 
-{% block body %}
-    <h1>AdminOffice/Authentication/LDAPController::index</h1>
-    <hr/>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">@IP</th>
-                <th scope="col">Encryption</th>
-                <th scope="col">
-                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                        <a class="btn btn-primary"><i class="bi bi-node-plus"></i> add</a>
-                    </div>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
+{% block content_title 'AdminOffice/Authentication/LDAPController::index' %}
 
-            {% for c,d in connections %}
-                <tr>
-                    <th scope="row">{{ c }}</th>
-                    <td>{{ d.ip }}</td>
-                    <td>{{ d.encryption }}</td>
-                    <td>
-                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-warning">Edit</button>
-                            <button type="button" class="btn btn-danger">Delete</button>
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">@IP</th>
+                        <th scope="col">Encryption</th>
+                        <th scope="col" class="text-end">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                <a href="{{ path('adminoffice.authentication.ldap.new') }}" class="btn btn-primary"><i class="bi bi-node-plus"></i> add</a>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+                    {% for c,d in connections %}
+                        <tr>
+                            <th scope="row">{{ c }}</th>
+                            <td>{{ d.ip }}</td>
+                            <td>{{ d.encryption }}</td>
+                            <td class="text-end">
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                    <a href="{{ path('adminoffice.authentication.ldap.edit', {'id': c}) }}" class="btn btn-warning">Edit</a>
+                                    <a href="{{ path('adminoffice.authentication.ldap.delete', {'id': c, '_token': csrf_token('delete-' ~ c)}) }}" type="button" class="btn btn-danger">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}

@@ -9,6 +9,7 @@ Encore
     .setPublicPath('/assets')
     .enableVersioning()
     .addEntry('app', './assets/app.js')
+    .addEntry('app_adminoffice', './assets/app_adminoffice.js')
     .addEntry('app_backoffice_security', './assets/app_backoffice_security.js')
     .copyFiles({from: './assets/favicon', to: 'favicon/[path][name].[ext]'})
     .copyFiles({from: './assets/images', to: 'images/[path][name].[ext]'})

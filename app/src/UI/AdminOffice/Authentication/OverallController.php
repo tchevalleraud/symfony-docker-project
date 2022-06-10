@@ -22,7 +22,7 @@
             $form->handleRequest($request);
 
             if($form->isSubmitted() && $form->isValid()){
-                $settingService->setSeeting('security.session.idle', $settingGlobal->getSecuritySessionIdle());
+                $settingService->setSetting('security.session.idle', $settingGlobal->getSecuritySessionIdle());
 
                 return $this->redirectToRoute('adminoffice.authentication.overall.index');
             }
