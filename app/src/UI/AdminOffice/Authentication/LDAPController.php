@@ -158,53 +158,19 @@
                         ];
                     }
                 }
-
-                /**
-                $servers = $settingService->getSetting("security.ldap.connections");
-                foreach ($servers as $v){
-                    try {
-                        $ldap = Ldap::create('ext_ldap', ['host' => $v['ip'], 'encryption' => $v['encryption']]);
-                        $ldap->bind($settingService->getSetting('security.ldap.authentication.username'), $settingService->getSetting('security.ldap.authentication.password'));
-
-                        $results[] = [
-                            'type'      => 'success',
-                            'message'   => 'Successful connection to ldap <b>'. $v['ip'] .'</b> server'
-                        ];
-
-                        try {
-                            $query = $ldap->query('DC=int,DC=local', '(&(userPrincipalName='. $form->getData()['search'] .'))');
-                            $result = $query->execute()->toArray();
-                            if(sizeof($result) == 1){
-                                $results[] = [
-                                    'type'      => 'success',
-                                    'message'   => 'User <b>'. $result[0]->getDn().'</b> was found on the LDAP server'
-                                ];
-                            } else {
-                                $results[] = [
-                                    'type'      => 'error',
-                                    'message'   => 'The user was not found on the LDAP server'
-                                ];
-                            }
-                        } catch (\Exception $e){
-                            $results[] = [
-                                'type'      => 'error',
-                                'message'   => 'The user was not found on the LDAP server'
-                            ];
-                        }
-                    } catch (\Exception $e){
-                        $results[] = [
-                            'type'      => 'error',
-                            'message'   => 'Failure connection to ldap <b>'. $v['ip'] .'</b> server'
-                        ];
-                    }
-                }
-                 * */
             }
 
             return $this->render("AdminOffice/Authentication/LDAP/test.html.twig", [
                 'form'      => $form->createView(),
                 'results'   => $results
             ]);
+        }
+
+        /**
+         * @Route("/mapping.html", name="mapping", methods={"GET", "POST"})
+         */
+        public function mapping(){
+            return $this->render("AdminOffice/Authentication/LDAP/mapping.html.twig");
         }
 
     }

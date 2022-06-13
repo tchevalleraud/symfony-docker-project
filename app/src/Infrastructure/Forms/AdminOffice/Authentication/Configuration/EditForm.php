@@ -1,5 +1,5 @@
 <?php
-    namespace App\Infrastructure\Forms\AdminOffice\Authentication\Globals;
+    namespace App\Infrastructure\Forms\AdminOffice\Authentication\Configuration;
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\Extension\Core\Type\IntegerType;

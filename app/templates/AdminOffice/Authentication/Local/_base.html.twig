@@ -1,0 +1,31 @@
+{% extends "AdminOffice/base.html.twig" %}
+
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">{% block content_title '' %}</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                {% set activeRoute = app.request.attributes.get('_route') %}
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+                <ul class="navbar-nav d-flex">
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'adminoffice.authentication.ldap.index' in activeRoute ? 'active' }}" aria-current="page" href="{{ path('adminoffice.authentication.ldap.index') }}">Configuration</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'adminoffice.authentication.ldap.test' in activeRoute ? 'active' }}" aria-current="page" href="{{ path('adminoffice.authentication.ldap.test') }}">Test LDAP</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'adminoffice.authentication.ldap.mapping' in activeRoute ? 'active' }}" aria-current="page" href="{{ path('adminoffice.authentication.ldap.test') }}">Role mapping</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid pt-4">
+         {% block content '' %}
+    </div>
+{% endblock %}
