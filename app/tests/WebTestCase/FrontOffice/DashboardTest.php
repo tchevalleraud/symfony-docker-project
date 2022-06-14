@@ -6,14 +6,14 @@
 
     class DashboardTest extends WebTestCase {
 
-        public function test_FR_Index(){
-            $crawler = $this->client->request('GET', '/fr/dashboard.html');
+        public function test_EN_Index(){
+            $crawler = $this->client->request('GET', '/en/dashboard.html');
             $this->assertResponseStatusCodeSame(Response::HTTP_OK);
             $this->assertEquals('Symfony Docker Project', $crawler->filter('title')->text());
         }
 
-        public function test_EN_Index(){
-            $crawler = $this->client->request('GET', '/en/dashboard.html');
+        public function test_FR_Index(){
+            $crawler = $this->client->request('GET', '/fr/dashboard.html');
             $this->assertResponseStatusCodeSame(Response::HTTP_OK);
             $this->assertEquals('Symfony Docker Project', $crawler->filter('title')->text());
         }

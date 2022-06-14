@@ -5,8 +5,16 @@
 
     class DashboardTest extends PantherTestCase {
 
+        public function test_EN_Index(){
+            $this->client->request('GET', '/en/dashboard.html');
+            $this->assertPageTitleContains('Symfony Docker Project');
+            $this->assertSelectorTextContains('h1', 'FrontOffice/Dashboard:index');
+        }
+
         public function test_FR_Index(){
-            $this->client->request('GET', '/');
+            $this->client->request('GET', '/fr/dashboard.html');
+            $this->assertPageTitleContains('Symfony Docker Project');
+            $this->assertSelectorTextContains('h1', 'FrontOffice/Dashboard:index');
         }
 
     }
