@@ -87,8 +87,8 @@ jobs:
       - name: Clear tests
         run: |
           cd ./dev/
-          rm -f phpunit.xml
-          rm -f coverage.xml
+          rm -f ./app/phpunit.xml
+          rm -f ./app/coverage.xml
       - name: Execute tests
         run: |
           cd ./dev/
