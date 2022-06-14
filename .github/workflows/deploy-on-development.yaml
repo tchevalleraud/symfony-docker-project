@@ -93,8 +93,8 @@ jobs:
         with:
           name: phpunit
           path: |
-            coverage.xml
-            phpunit.xml
+            ./dev/coverage.xml
+            ./dev/phpunit.xml
   test-codacy:
     needs: [test]
     runs-on: ubuntu-latest
