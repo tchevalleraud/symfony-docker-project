@@ -286,7 +286,7 @@ phpunit/coverage:
 	@echo "${PURPLE}#"
 	@echo "${PURPLE}################################################################################################"
 	@echo "${RESET}"
-	$(php) XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover coverage.xml
+	$(php) ./vendor/bin/phpunit --coverage-clover coverage.xml
 
 phpunit/testdox:
 	@echo "${PURPLE}################################################################################################"
