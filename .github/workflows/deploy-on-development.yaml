@@ -103,6 +103,8 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: phpunit
+      - name: Display
+        run: ls -Al
       - name: Upload coverage results to Codacy
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_TOKEN }}
