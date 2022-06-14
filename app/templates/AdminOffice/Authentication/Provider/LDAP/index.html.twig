@@ -50,6 +50,12 @@
                 {% include "_forms/input.text.html.twig" with { 'form': form.security_ldap_search_user } %}
                 {% include "_forms/input.text.html.twig" with { 'form': form.security_ldap_schema_user_object } %}
                 {% include "_forms/input.text.html.twig" with { 'form': form.security_ldap_schema_user_search } %}
+
+                <div class="row pt-4">
+                    <div class="col-12 text-end">
+                        {{ form_widget(form.submit) }}
+                    </div>
+                </div>
             {{ form_widget(form) }}
             {{ form_end(form) }}
         </div>
