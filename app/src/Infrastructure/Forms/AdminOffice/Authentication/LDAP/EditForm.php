@@ -14,15 +14,22 @@
             parent::buildForm($builder, $options);
             $builder
                 ->add('security_ldap_authentication_username', TextType::class, [
-                    'label'     => 'form.security.authentication.username'
+                    'label'     => 'form.security.authentication.username',
+                    'required'  => false
                 ])
                 ->add('security_ldap_authentication_password', PasswordType::class, [
                     'always_empty'  => false,
                     'required'      => false
                 ])
-                ->add('security_ldap_search_user', TextType::class)
-                ->add('security_ldap_schema_user_object', TextType::class)
-                ->add('security_ldap_schema_user_search', TextType::class)
+                ->add('security_ldap_search_user', TextType::class, [
+                    'required'  => false
+                ])
+                ->add('security_ldap_schema_user_object', TextType::class, [
+                    'required'  => false
+                ])
+                ->add('security_ldap_schema_user_search', TextType::class, [
+                    'required'  => false
+                ])
                 ->add('security_ldap_enabled', CheckboxType::class, [
                     'label'     => 'form.security.enabled',
                     'required'  => false

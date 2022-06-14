@@ -41,13 +41,13 @@
             }
 
             $this->checkSetting("security.session.idle", 3600, "integer");
-            $this->checkSetting("security.ldap.connections", json_encode([["ip" => "192.168.1.130", "encryption" => "none"]]), "array");
+            $this->checkSetting("security.ldap.connections", json_encode([]), "array");
             $this->checkSetting("security.ldap.authentication.username");
             $this->checkSetting("security.ldap.authentication.password");
             $this->checkSetting("security.ldap.search.user");
             $this->checkSetting("security.ldap.schema.user.object");
             $this->checkSetting("security.ldap.schema.user.search");
-            $this->checkSetting("security.ldap.enabled", true, "boolean");
+            $this->checkSetting("security.ldap.enabled", false, "boolean");
 
             return Command::SUCCESS;
         }
