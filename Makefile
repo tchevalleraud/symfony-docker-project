@@ -277,7 +277,7 @@ phpunit:
 	@echo "${PURPLE}#"
 	@echo "${PURPLE}################################################################################################"
 	@echo "${RESET}"
-	$(php) ./vendor/bin/phpunit
+	$(php) ./vendor/bin/phpunit --log-junit phpunit.xml
 
 phpunit/coverage:
 	@echo "${PURPLE}################################################################################################"

@@ -84,6 +84,11 @@ jobs:
     needs: [deploy]
     runs-on: [development]
     steps:
+      - name: Clear tests
+        run: |
+          cd ./dev/
+          rm -f phpunit.xml
+          rm -f coverage.xml
       - name: Execute tests
         run: |
           cd ./dev/
@@ -112,4 +117,4 @@ jobs:
       - name: Upload coverage results to Codacy
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_TOKEN }}
-        run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ./dev/app/coverage.xml
+        run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ./coverage.xml
