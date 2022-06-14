@@ -34,18 +34,22 @@
                                 </div>
                             </td>
                         </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center"><p class="text-muted">No server</p></td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
         <div class="col">
             {{ form_start(form) }}
+                {% include "_forms/inline/input.checkbox.html.twig" with { 'form': form.security_ldap_enabled } %}
                 {% include "_forms/input.text.html.twig" with { 'form': form.security_ldap_authentication_username } %}
                 {% include "_forms/input.text.html.twig" with { 'form': form.security_ldap_authentication_password } %}
                 {% include "_forms/input.text.html.twig" with { 'form': form.security_ldap_search_user } %}
                 {% include "_forms/input.text.html.twig" with { 'form': form.security_ldap_schema_user_object } %}
                 {% include "_forms/input.text.html.twig" with { 'form': form.security_ldap_schema_user_search } %}
-                {% include "_forms/input.checkbox.html.twig" with { 'form': form.security_ldap_enabled } %}
             {{ form_widget(form) }}
             {{ form_end(form) }}
         </div>
