@@ -81,7 +81,7 @@ jobs:
           cd ./dev/
           make cache/clear
   test:
-    needs: deploy
+    needs: [deploy]
     runs-on: [development]
     steps:
       - name: Execute tests
@@ -96,7 +96,7 @@ jobs:
             coverage.xml
             phpunit.xml
   test-codacy:
-    needs: test
+    needs: [test]
     runs-on: ubuntu-latest
     steps:
       - name: Download tests results
