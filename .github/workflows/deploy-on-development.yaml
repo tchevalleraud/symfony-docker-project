@@ -62,7 +62,7 @@ jobs:
           openssl rsa -pubout -in ./app/config/jwt/private_key.pem -out ./app/config/jwt/public_key.pem
   deploy:
     runs-on: [development]
-    needs: [test-codacy]
+    needs: [build]
     steps:
       - name: Start docker environment
         run: |
