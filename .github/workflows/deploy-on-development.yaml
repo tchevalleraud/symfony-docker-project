@@ -106,4 +106,4 @@ jobs:
       - name: Upload coverage results to Codacy
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_TOKEN }}
-        run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage.xml
+        run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ./dev/app/coverage.xml
