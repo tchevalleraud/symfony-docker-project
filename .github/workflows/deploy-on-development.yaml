@@ -88,6 +88,10 @@ jobs:
         run: |
           cd ./dev/
           make phpunit
+      - name: Execute tests
+        run: |
+          cd ./dev/
+          make phpunit/coverage
       - name: Upload tests results
         uses: actions/upload-artifact@v2
         with:
