@@ -112,10 +112,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: phpunit
-      - name: Run codacy-coverage-reporter
-        uses: codacy/codacy-coverage-reporter-action@v1
-        env:
-          CODACY_REPORTER_SKIP_CHECKSUM: true
-        with:
-          project-token: ${{ secrets.CODACY_TOKEN }}
-          coverage-reports: coverage.xml
+      - name: Upload tests
+        run: |
+          cd ./dev/app/
+          bash <(curl -Ls https://coverage.codacy.com/get.sh)
