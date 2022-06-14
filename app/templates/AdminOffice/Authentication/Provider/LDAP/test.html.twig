@@ -1,6 +1,7 @@
-{% extends "AdminOffice/Authentication/LDAP/_base.html.twig" %}
+{% extends "AdminOffice/Authentication/Provider/LDAP/_base.html.twig" %}
 
-{% block content_title 'AdminOffice/Authentication/LDAPController::test' %}
+{% block sub_menu_title_href path('adminoffice.authentication.provider.ldap.test') %}
+{% block sub_menu_title 'AdminOffice/Authentication/Provider/LDAPController::test' %}
 
 {% block content %}
     <div class="row">

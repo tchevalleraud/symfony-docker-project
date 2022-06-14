@@ -1,0 +1,17 @@
+<div class="d-flex">
+    <div class="form-check form-check-custom form-check-solid">
+        {{ form_widget(form, {'attr': {'class': 'form-check-input me-3' }}) }}
+        <label class="form-check-label" for="kt_modal_update_email_notification_0">
+            <div class="fw-bolder">{{ form.vars.label | trans([], 'forms') }}</div>
+            {% if not form.vars.valid %}
+                {% for e in form.vars.errors %}
+                    <div class="text-danger">{{ e.message | trans([], 'forms') }}</div>
+                {% endfor %}
+            {% else %}
+                {% if form.vars.help %}
+                    <div class="text-gray-600">{{ form.vars.help | trans([], 'forms') }}</div>
+                {% endif %}
+            {% endif %}
+        </label>
+    </div>
+</div>

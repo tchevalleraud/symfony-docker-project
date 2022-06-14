@@ -6,6 +6,11 @@
 {% block content %}
     {{ form_start(form) }}
         {% include "_forms/inline/input.text.html.twig" with { 'form': form.security_session_idle } %}
+        <div class="row pt-4">
+            <div class="col-12 text-end">
+                {{ form_widget(form.submit) }}
+            </div>
+        </div>
     {{ form_widget(form) }}
     {{ form_end(form) }}
 {% endblock %}

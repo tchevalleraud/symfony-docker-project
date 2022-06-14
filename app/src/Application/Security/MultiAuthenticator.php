@@ -1,6 +1,7 @@
 <?php
     namespace App\Application\Security;
 
+    use App\Application\Services\LDAPService;
     use App\Application\Services\SettingService;
     use App\Domain\_mysql\System\Entity\User;
     use Doctrine\ORM\EntityManagerInterface;
@@ -26,9 +27,10 @@
 
     class MultiAuthenticator extends AbstractAuthenticator {
 
-        private EntityManagerInterface $entityManager;
         private CsrfTokenManagerInterface $csrfTokenManager;
+        private EntityManagerInterface $entityManager;
         private KernelInterface $kernel;
+        private LDAPService $LDAPService;
         private RouterInterface $router;
         private SettingService $settingService;
         private UserPasswordHasherInterface $passwordHasher;
@@ -37,12 +39,14 @@
             CsrfTokenManagerInterface $csrfTokenManager,
             EntityManagerInterface $entityManager,
             KernelInterface $kernel,
+            LDAPService $LDAPService,
             RouterInterface $router,
             SettingService $settingService,
             UserPasswordHasherInterface $passwordHasher){
                 $this->entityManager = $entityManager;
                 $this->csrfTokenManager = $csrfTokenManager;
                 $this->kernel = $kernel;
+                $this->LDAPService = $LDAPService;
                 $this->router = $router;
                 $this->settingService = $settingService;
                 $this->passwordHasher = $passwordHasher;
@@ -79,53 +83,27 @@
             /**
              * LDAP Authentication
              */
-            if($this->settingService->getSetting("security.ldap.enabled")){
+            if($this->settingService->getSetting("security.ldap.enabled")) {
                 $user = $this->entityManager->getRepository(User::class)->findOneBy(['username' => $credentials['username'], 'source' => 'ldap']);
-                if(!$user){
-                    $servers = $this->settingService->getSetting("security.ldap.connections");
-                    foreach ($servers as $k => $v){
-                        $ldap = Ldap::create('ext_ldap', ['host' => $v->ip, 'encryption' => $v->encryption]);
-                        $ldap->bind($this->settingService->getSetting('security.ldap.authentication.username'), $this->settingService->getSetting('security.ldap.authentication.password'));
-                        $query = $ldap->query('DC=int,DC=local', '(&(userPrincipalName='. $credentials['username'] .'))');
-                        $results = $query->execute()->toArray();
-                        if(sizeof($results) == 1) {
-                            try{
-                                $ldap->bind($results[0]->getDn(), $credentials['password']);
+                $servers = $this->LDAPService->getServers();
+                foreach ($servers as $s) {
+                    if ($this->LDAPService->testConnection($s)) {
+                        $search = $this->LDAPService->searchUser($credentials['username']);
+                        if ($search !== false) {
+                            if ($this->LDAPService->testConnection($s, $search, $credentials['password'])) {
+                                if (!$user) {
+                                    $user = new User();
+                                    $user->setUsername($credentials['username']);
+                                    $user->setSource("ldap");
 
-                                $user = new User();
-                                $user->setUsername($credentials['username']);
-                                $user->setSource("ldap");
+                                    $this->entityManager->persist($user);
+                                    $this->entityManager->flush();
+                                }
 
-                                $this->entityManager->persist($user);
-                                $this->entityManager->flush();
-
-                                return new SelfValidatingPassport(
-                                    new UserBadge($credentials['username'])
-                                );
-                            } catch (\Exception $e){
-                                throw new AuthenticationException($e->getMessage());
-                            }
-                        }
-                    }
-                } else {
-                    $servers = $this->settingService->getSetting("security.ldap.connections");
-                    foreach ($servers as $k => $v){
-                        $ldap = Ldap::create('ext_ldap', ['host' => $v->ip, 'encryption' => $v->encryption]);
-                        $ldap->bind($this->settingService->getSetting('security.ldap.authentication.username'), $this->settingService->getSetting('security.ldap.authentication.password'));
-                        $query = $ldap->query('DC=int,DC=local', '(&(userPrincipalName='. $credentials['username'] .'))');
-                        $results = $query->execute()->toArray();
-                        if(sizeof($results) == 1) {
-                            try {
-                                $ldap->bind($results[0]->getDn(), $credentials['password']);
-
-                                return new SelfValidatingPassport(
-                                    new UserBadge($credentials['username'])
-                                );
-                            } catch (\Exception $e) {
-                                throw new AuthenticationException($e->getMessage());
-                            }
-                        }
-                    }
+                                return new SelfValidatingPassport(new UserBadge($credentials['username']));
+                            } else throw new AuthenticationException();
+                        } else throw new AuthenticationException();
+                    } else throw new AuthenticationException();
                 }
             }
 

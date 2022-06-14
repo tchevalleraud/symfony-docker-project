@@ -15,7 +15,7 @@
                     'label'     => 'form.security.sessionIdle',
                     'required'  => true
                 ])
-                ->add('Submit', SubmitType::class);
+                ->add('submit', SubmitType::class);
         }
 
     }

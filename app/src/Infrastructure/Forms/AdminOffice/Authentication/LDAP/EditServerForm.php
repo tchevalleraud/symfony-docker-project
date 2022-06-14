@@ -21,7 +21,7 @@
                         'tls'   => 'tls'
                     ]
                 ])
-                ->add('Submit', SubmitType::class);
+                ->add('submit', SubmitType::class);
         }
 
     }
