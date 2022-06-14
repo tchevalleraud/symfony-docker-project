@@ -277,7 +277,8 @@ phpunit:
 	@echo "${PURPLE}#"
 	@echo "${PURPLE}################################################################################################"
 	@echo "${RESET}"
-	$(php) ./vendor/bin/phpunit --log-junit phpunit.xml
+	rm -f ./app/phpunit.xml
+	$(php) ./vendor/bin/phpunit --configuration phpunit.xml.dist
 
 phpunit/coverage:
 	@echo "${PURPLE}################################################################################################"
@@ -286,7 +287,7 @@ phpunit/coverage:
 	@echo "${PURPLE}#"
 	@echo "${PURPLE}################################################################################################"
 	@echo "${RESET}"
-	$(php) ./vendor/bin/phpunit --coverage-clover coverage.xml
+	$(php) ./vendor/bin/phpunit --configuration phpunit.xml.dist --coverage-clover coverage.xml
 
 phpunit/testdox:
 	@echo "${PURPLE}################################################################################################"
@@ -295,7 +296,7 @@ phpunit/testdox:
 	@echo "${PURPLE}#"
 	@echo "${PURPLE}################################################################################################"
 	@echo "${RESET}"
-	$(php) ./vendor/bin/phpunit --testdox
+	$(php) ./vendor/bin/phpunit --configuration phpunit.xml.dist --testdox
 
 phpunit/testsuite:
 	@echo "${PURPLE}################################################################################################"
