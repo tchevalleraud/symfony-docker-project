@@ -7,7 +7,12 @@
 
     class HelperProfiler extends AbstractDataCollector {
 
+        private Request $request;
+        private Response $response;
+
         public function collect(Request $request, Response $response, \Throwable $exception = null) {
+            $this->request = $request;
+            $this->response = $response;
         }
 
         public static function getTemplate(): ?string {

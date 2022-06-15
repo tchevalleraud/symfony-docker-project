@@ -13,7 +13,7 @@
         /**
          * @Route(".html", name="index", methods={"GET"})
          */
-        public function index(SessionInterface $session){
+        public function index(){
             return $this->render("AdminOffice/Dashboard/index.html.twig");
         }
 

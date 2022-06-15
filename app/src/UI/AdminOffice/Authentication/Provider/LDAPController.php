@@ -165,7 +165,7 @@
         /**
          * @Route("/test.html", name="test", methods={"GET", "POST"})
          */
-        public function test(LDAPService $LDAPService, Request $request, SettingService $settingService){
+        public function test(LDAPService $LDAPService, Request $request){
             $form = $this->createFormBuilder()->add('search', TextType::class)->add('Submit', SubmitType::class)->getForm();
             $form->handleRequest($request);
 
