@@ -3,6 +3,8 @@ security:
         - { path: ^/(fr|en)/admin/login.html, roles: PUBLIC_ACCESS }
         - { path: ^/(fr|en)/admin, roles: ROLE_USER }
         - { path: ^/(fr|en)/manage/login.html, roles: PUBLIC_ACCESS }
+        - { path: ^/(fr|en)/manage/login/microsoft.html, roles: PUBLIC_ACCESS }
+        - { path: ^/(fr|en)/manage/login/microsoft/callback.html, roles: PUBLIC_ACCESS }
         - { path: ^/(fr|en)/manage, roles: ROLE_USER }
 
     enable_authenticator_manager: true

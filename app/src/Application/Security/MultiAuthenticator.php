@@ -2,6 +2,7 @@
     namespace App\Application\Security;
 
     use App\Application\Services\LDAPService;
+    use App\Application\Services\MicrosoftService;
     use App\Application\Services\SettingService;
     use App\Domain\_mysql\System\Entity\User;
     use Doctrine\ORM\EntityManagerInterface;
@@ -9,15 +10,12 @@
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\HttpKernel\KernelInterface;
-    use Symfony\Component\Ldap\Ldap;
     use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
     use Symfony\Component\Routing\RouterInterface;
     use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
     use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
     use Symfony\Component\Security\Core\Exception\AuthenticationException;
-    use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
     use Symfony\Component\Security\Core\Security;
-    use Symfony\Component\Security\Csrf\CsrfToken;
     use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
     use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
     use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
@@ -31,6 +29,7 @@
         private EntityManagerInterface $entityManager;
         private KernelInterface $kernel;
         private LDAPService $LDAPService;
+        private MicrosoftService $microsoftService;
         private RouterInterface $router;
         private SettingService $settingService;
         private UserPasswordHasherInterface $passwordHasher;
@@ -54,16 +53,12 @@
 
         public function supports(Request $request): ?bool {
             if($request->request->get('_username')) return true;
+            elseif($request->attributes->get('_route') == "adminoffice.security.login.microsoft.callback") return true;
             else return false;
         }
 
         public function authenticate(Request $request): Passport {
             $credentials = $this->getCredentials($request);
-
-            $token = new CsrfToken('authenticate', $credentials['csrf_token']);
-            if(!$this->csrfTokenManager->isTokenValid($token)){
-                throw new InvalidCsrfTokenException();
-            }
 
             /**
              * Local authentication
@@ -101,9 +96,25 @@
                                 }
 
                                 return new SelfValidatingPassport(new UserBadge($credentials['username']));
-                            } else throw new AuthenticationException();
-                        } else throw new AuthenticationException();
-                    } else throw new AuthenticationException();
+                            }
+                        }
+                    }
+                }
+            }
+
+            /**
+             * Microsoft Authentication
+             */
+            if($this->settingService->getSetting("security.microsoft.enabled")){
+                $authCode = $request->query->get('code');
+                if($authCode != null){
+                    $this->microsoftService = new MicrosoftService($this->entityManager, $request, $this->settingService);
+                    $this->microsoftService->initUserAuthCode($authCode);
+                    $this->microsoftService->syncUserMe();
+
+                    return new SelfValidatingPassport(new UserBadge($this->microsoftService->getUser()->getUsername()));
+                } else {
+                    throw new \Exception($request->query->get('error_description'));
                 }
             }
 
@@ -114,6 +125,9 @@
         }
 
         public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response {
+            $session = $request->getSession();
+            $session->set('O365AccessToken', $this->microsoftService->getAccessToken());
+
             return new RedirectResponse($request->getSession()->getBag('attributes')->get('_security.'.$firewallName.'.target_path'));
         }
 

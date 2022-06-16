@@ -41,6 +41,7 @@
             }
 
             $this->checkSetting("security.session.idle", 3600, "integer");
+
             $this->checkSetting("security.ldap.connections", json_encode([]), "array");
             $this->checkSetting("security.ldap.authentication.username");
             $this->checkSetting("security.ldap.authentication.password");
@@ -48,6 +49,25 @@
             $this->checkSetting("security.ldap.schema.user.object");
             $this->checkSetting("security.ldap.schema.user.search");
             $this->checkSetting("security.ldap.enabled", false, "boolean");
+
+            $this->checkSetting("security.facebook.enabled", false, "boolean");
+
+            $this->checkSetting("security.github.enabled", false, "boolean");
+
+            $this->checkSetting("security.google.enabled", false, "boolean");
+
+            $this->checkSetting("security.instagram.enabled", false, "boolean");
+
+            $this->checkSetting("security.linkedin.enabled", false, "boolean");
+
+            $this->checkSetting("security.microsoft.client.id", false, "boolean");
+            $this->checkSetting("security.microsoft.client.secret");
+            $this->checkSetting("security.microsoft.redirectUri");
+            $this->checkSetting("security.microsoft.url.authorize", "https://login.microsoftonline.com/common/oauth2/v2.0/authorize");
+            $this->checkSetting("security.microsoft.url.accessToken", "https://login.microsoftonline.com/common/oauth2/v2.0/token");
+            $this->checkSetting("security.microsoft.url.ressource");
+            $this->checkSetting("security.microsoft.scopes", "openid profile User.Read User.ReadBasic.All");
+            $this->checkSetting("security.microsoft.enabled", false, "boolean");
 
             return Command::SUCCESS;
         }

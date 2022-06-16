@@ -30,6 +30,14 @@ services:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
         arguments: [ '@security.authorization_checker', '@security.token_storage',  '@router' ]
 
+    App\Application\Services\MicrosoftService:
+        arguments: ['@session']
+
+    App\Application\Subscriber\O365GraphTokenSubscriber:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
+        arguments: ['@request_stack']
+
     App\Application\Subscriber\RequestSubscriber:
         tags:
             - { name: kernel.event_listener, event: kernel.request }
