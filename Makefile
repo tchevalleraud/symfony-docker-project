@@ -16,11 +16,14 @@ sy	:= $(php) php bin/console
 help:
 	@echo "${PURPLE}################################################################################################"
 	@echo "${PURPLE}#"
-	@echo "${PURPLE}# ${RESET}HELP"
+	@echo "${PURPLE}# ${RESET}HELP (.env $(APP_ENV))"
 	@echo "${PURPLE}#"
 	@echo "${PURPLE}################################################################################################"
 	@echo ""
 	@echo "${BLUE}help${RESET} : Affiche cette aide"
+	@echo ""
+	@echo "${PURPLE}# Console command"
+	@echo "${BLUE}console ${RED}arg1${RESET} : Permet d'execute la commande ${RED}arg1${RESET} dans la console symfony."
 	@echo ""
 	@echo "${PURPLE}# Composer command"
 	@echo "${BLUE}composer/require ${RED}arg1${RESET} : Permet l'installation du package ${RED}arg1${RESET}."
@@ -64,6 +67,15 @@ help:
 cache/clear:
 	$(sy) cache:clear
 
+console:
+	@echo "${PURPLE}################################################################################################"
+	@echo "${PURPLE}#"
+	@echo "${PURPLE}# ${RESET}console ${RED}" $(filter-out $@,$(MAKECMDGOALS))
+	@echo "${PURPLE}#"
+	@echo "${PURPLE}################################################################################################"
+	@echo "${RESET}"
+	$(php) php bin/console $(filter-out $@,$(MAKECMDGOALS))
+
 composer/require:
 	@echo "${PURPLE}################################################################################################"
 	@echo "${PURPLE}#"
@@ -96,7 +108,7 @@ deploy/local:
 	@make openssl/genrsa
 	@make docker/compose/up
 	@make doctrine/database/create
-	@make doctrine/fixtures/load
+	@make console app:system:init
 
 docker/build:
 	@echo "${PURPLE}################################################################################################"
@@ -176,6 +188,7 @@ doctrine/database/create:
 	$(sy) doctrine:database:create -c mysql --if-not-exists
 	$(sy) doctrine:database:create -c local
 	$(sy) doctrine:schema:update --force --em mysql
+	$(sy) doctrine:schema:update --force --em local
 
 doctrine/fixtures/load:
 	@echo "${PURPLE}################################################################################################"
@@ -264,7 +277,8 @@ phpunit:
 	@echo "${PURPLE}#"
 	@echo "${PURPLE}################################################################################################"
 	@echo "${RESET}"
-	$(php) ./vendor/bin/phpunit
+	rm -f ./app/phpunit.xml
+	$(php) ./vendor/bin/phpunit --configuration phpunit.xml.dist
 
 phpunit/coverage:
 	@echo "${PURPLE}################################################################################################"
@@ -273,7 +287,7 @@ phpunit/coverage:
 	@echo "${PURPLE}#"
 	@echo "${PURPLE}################################################################################################"
 	@echo "${RESET}"
-	$(php) ./vendor/bin/phpunit --coverage-clover coverage.xml
+	$(php) ./vendor/bin/phpunit --configuration phpunit.xml.dist --coverage-clover coverage.xml
 
 phpunit/testdox:
 	@echo "${PURPLE}################################################################################################"
@@ -282,7 +296,7 @@ phpunit/testdox:
 	@echo "${PURPLE}#"
 	@echo "${PURPLE}################################################################################################"
 	@echo "${RESET}"
-	$(php) ./vendor/bin/phpunit --testdox
+	$(php) ./vendor/bin/phpunit --configuration phpunit.xml.dist --testdox
 
 phpunit/testsuite:
 	@echo "${PURPLE}################################################################################################"

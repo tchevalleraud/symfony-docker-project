@@ -72,7 +72,46 @@ jobs:
         run: |
           cd ./dev/
           make doctrine/database/create
+      - name: Init application
+        run: |
+          cd ./dev/
+          make console app:system:init
       - name: Cache clear
         run: |
           cd ./dev/
           make cache/clear
+  test:
+    needs: [deploy]
+    runs-on: [development]
+    steps:
+      - name: Clear tests
+        run: |
+          cd ./dev/
+          rm -f ./app/phpunit.xml
+          rm -f ./app/coverage.xml
+      - name: Execute tests
+        run: |
+          cd ./dev/
+          make phpunit
+      - name: Execute tests
+        run: |
+          cd ./dev/
+          make phpunit/coverage
+      - name: Upload tests results
+        uses: actions/upload-artifact@v2
+        with:
+          name: phpunit
+          path: |
+            ./dev/app/coverage.xml
+            ./dev/app/phpunit.xml
+  test-codacy:
+    needs: [test]
+    runs-on: [development]
+    steps:
+      - name: Debug
+        run: |
+          ls -Al
+      - name: Upload coverage results to Codacy
+        env:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_TOKEN }}
+        run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r dev/app/coverage.xml

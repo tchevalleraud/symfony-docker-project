@@ -11,7 +11,7 @@
         /**
          * @Route("", name="root", methods={"GET"})
          */
-        public function index(MailerInterface $mailer){
+        public function index(){
             return $this->redirectToRoute('frontoffice.dashboard.index');
         }
 

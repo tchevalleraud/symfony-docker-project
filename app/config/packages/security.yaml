@@ -3,6 +3,8 @@ security:
         - { path: ^/(fr|en)/admin/login.html, roles: PUBLIC_ACCESS }
         - { path: ^/(fr|en)/admin, roles: ROLE_USER }
         - { path: ^/(fr|en)/manage/login.html, roles: PUBLIC_ACCESS }
+        - { path: ^/(fr|en)/manage/login/microsoft.html, roles: PUBLIC_ACCESS }
+        - { path: ^/(fr|en)/manage/login/microsoft/callback.html, roles: PUBLIC_ACCESS }
         - { path: ^/(fr|en)/manage, roles: ROLE_USER }
 
     enable_authenticator_manager: true
@@ -20,6 +22,8 @@ security:
             pattern: ^/api/v2/
             provider: system_apiv2_provider
         adminoffice:
+            custom_authenticators:
+                - App\Application\Security\MultiAuthenticator
             form_login:
                 always_use_default_target_path: true
                 check_path: adminoffice.security.login
@@ -29,8 +33,10 @@ security:
             logout:
                 path: backoffice.security.logout
             pattern: ^/(fr|en)/manage/
-            provider: system_user_email_provider
+            provider: system_user_username_provider
         backoffice:
+            custom_authenticators:
+                - App\Application\Security\MultiAuthenticator
             form_login:
                 always_use_default_target_path: true
                 check_path: backoffice.security.login
@@ -40,7 +46,7 @@ security:
             logout:
                 path: backoffice.security.logout
             pattern: ^/(fr|en)/admin/
-            provider: system_user_email_provider
+            provider: system_user_username_provider
 
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
@@ -49,10 +55,10 @@ security:
         system_apiv2_provider:
             chain:
                 providers: [system_user_id_provider]
-        system_user_email_provider:
+        system_user_username_provider:
             entity:
                 class: App\Domain\_mysql\System\Entity\User
-                property: email
+                property: username
         system_user_id_provider:
             entity:
                 class: App\Domain\_mysql\System\Entity\User
