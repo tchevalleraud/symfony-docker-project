@@ -10,19 +10,11 @@ frontoffice:
     resource: ../../src/UI/FrontOffice
     type: annotation
 
-backoffice:
-    name_prefix: backoffice.
-    prefix:
-        en: "/en/admin/"
-        fr: "/fr/admin/"
-    resource: ../../src/UI/BackOffice
-    type: annotation
-
 adminoffice:
     name_prefix: adminoffice.
     prefix:
-        en: "/en/manage/"
-        fr: "/fr/manage/"
+        en: "/en/admin/"
+        fr: "/fr/admin/"
     resource: ../../src/UI/AdminOffice
     type: annotation
 

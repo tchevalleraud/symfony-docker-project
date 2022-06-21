@@ -24,11 +24,14 @@
         <testsuite name="API">
             <directory>tests/ApiTestCase</directory>
         </testsuite>
+        <testsuite name="Kernel">
+            <directory>tests/KernelTestCase</directory>
+        </testsuite>
         <testsuite name="Panther">
             <directory>tests/PantherTestCase</directory>
         </testsuite>
         <testsuite name="Unit">
-            <directory>tests/TestCase</directory>
+            <directory>tests/UnitTestCase</directory>
         </testsuite>
         <testsuite name="Web">
             <directory>tests/WebTestCase</directory>
