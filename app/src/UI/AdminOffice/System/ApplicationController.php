@@ -2,7 +2,7 @@
     namespace App\UI\AdminOffice\System;
 
     use App\Application\Services\SettingService;
-    use App\Domain\_local\System\Forms\SettingSystemApplication;
+    use App\Domain\Local\System\Forms\SettingSystemApplication;
     use App\Infrastructure\Forms\AdminOffice\System\Application\EditForm;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\HttpFoundation\Request;

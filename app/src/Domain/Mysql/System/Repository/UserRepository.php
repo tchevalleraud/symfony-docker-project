@@ -1,7 +1,7 @@
 <?php
-    namespace App\Domain\_mysql\System\Repository;
+    namespace App\Domain\Mysql\System\Repository;
 
-    use App\Domain\_mysql\System\Entity\User;
+    use App\Domain\Mysql\System\Entity\User;
     use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
     use Doctrine\Persistence\ManagerRegistry;
 

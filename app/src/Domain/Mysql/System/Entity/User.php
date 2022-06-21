@@ -1,5 +1,5 @@
 <?php
-    namespace App\Domain\_mysql\System\Entity;
+    namespace App\Domain\Mysql\System\Entity;
 
     use Doctrine\ORM\Mapping as ORM;
     use Ramsey\Uuid\Doctrine\UuidGenerator;
@@ -8,7 +8,7 @@
     use Symfony\Component\Security\Core\User\UserInterface;
 
     /**
-     * @ORM\Entity(repositoryClass="App\Domain\_mysql\System\Repository\UserRepository")
+     * @ORM\Entity(repositoryClass="App\Domain\Mysql\System\Repository\UserRepository")
      * @ORM\Table(name="system_user")
      * @UniqueEntity("email")
      */

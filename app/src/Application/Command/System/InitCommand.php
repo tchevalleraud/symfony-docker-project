@@ -2,8 +2,8 @@
     namespace App\Application\Command\System;
 
     use App\Application\Services\AWSS3Service;
-    use App\Domain\_local\System\Entity\Setting;
-    use App\Domain\_mysql\System\Entity\User;
+    use App\Domain\Local\System\Entity\Setting;
+    use App\Domain\Mysql\System\Entity\User;
     use Doctrine\ORM\EntityManagerInterface;
     use Symfony\Component\Console\Command\Command;
     use Symfony\Component\Console\Input\InputInterface;

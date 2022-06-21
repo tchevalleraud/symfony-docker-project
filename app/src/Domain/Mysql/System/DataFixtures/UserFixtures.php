@@ -1,7 +1,7 @@
 <?php
-    namespace App\Domain\_mysql\System\DataFixtures;
+    namespace App\Domain\Mysql\System\DataFixtures;
 
-    use App\Domain\_mysql\System\Entity\User;
+    use App\Domain\Mysql\System\Entity\User;
     use Doctrine\Bundle\FixturesBundle\Fixture;
     use Doctrine\Persistence\ObjectManager;
     use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;

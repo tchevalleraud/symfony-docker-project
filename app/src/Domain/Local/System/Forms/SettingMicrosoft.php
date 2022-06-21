@@ -1,5 +1,5 @@
 <?php
-    namespace App\Domain\_local\System\Forms;
+    namespace App\Domain\Local\System\Forms;
 
     use App\Application\Services\SettingService;
 

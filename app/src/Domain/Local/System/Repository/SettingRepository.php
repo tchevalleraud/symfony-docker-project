@@ -1,7 +1,7 @@
 <?php
-    namespace App\Domain\_local\System\Repository;
+    namespace App\Domain\Local\System\Repository;
 
-    use App\Domain\_local\System\Entity\Setting;
+    use App\Domain\Local\System\Entity\Setting;
     use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
     use Doctrine\Persistence\ManagerRegistry;
 

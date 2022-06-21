@@ -1,10 +1,10 @@
 <?php
-    namespace App\Domain\_local\System\Entity;
+    namespace App\Domain\Local\System\Entity;
 
     use Doctrine\ORM\Mapping as ORM;
 
     /**
-     * @ORM\Entity(repositoryClass="App\Domain\_local\System\Repository\SettingRepository")
+     * @ORM\Entity(repositoryClass="App\Domain\Local\System\Repository\SettingRepository")
      * @ORM\Table(name="system_setting")
      */
     class Setting {

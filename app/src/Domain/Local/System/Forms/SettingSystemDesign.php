@@ -1,5 +1,5 @@
 <?php
-    namespace App\Domain\_local\System\Forms;
+    namespace App\Domain\Local\System\Forms;
 
     use Symfony\Component\HttpFoundation\File\File;
     use Vich\UploaderBundle\Mapping\Annotation as Vich;
