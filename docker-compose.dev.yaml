@@ -75,8 +75,6 @@ services:
     environment:
       PMA_ABSOLUTE_URI: ${DOCKER_DATABASE_URI}
       PMA_HOST: database
-      PMA_USER: root
-      PMA_PASSWORD: ${DOCKER_DATABASE_PASSWORD}
     image: phpmyadmin
     restart: always
   redis:
