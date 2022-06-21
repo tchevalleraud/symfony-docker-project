@@ -5,7 +5,7 @@ on:
       - develop
 jobs:
   init:
-    name: "initialization"
+    name: "Initialization"
     runs-on: [development]
     steps:
       - name: Check directory exist
