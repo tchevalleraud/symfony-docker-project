@@ -220,6 +220,11 @@ env/dev:
 	cat env/.env.dev.github >> .env
 	@bash env/app.sh
 
+env/init:
+	rm env/.env -f
+	rm env/.env.tmp -f
+	@bash env/init.sh
+
 env/local:
 	@echo "${PURPLE}################################################################################################"
 	@echo "${PURPLE}#"

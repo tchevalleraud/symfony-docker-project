@@ -5,7 +5,7 @@ write_var(){
   echo "$1=$2" >> ./env/.env.local
 }
 
-write_var "APP_ENV" "local"
+write_var "APP_ENV" "dev"
 
 echo -n "APP URI [http://localhost] : "
 read APP_URI
@@ -67,6 +67,16 @@ else
   write_var "DOCKER_MINIO_CONSOLE" $DOCKER_MINIO_CONSOLE
 fi
 
+echo -n "Minio console public port [9001] : "
+read DOCKER_MINIO_CONSOLE_PORT
+if [ -z "$DOCKER_MINIO_CONSOLE_PORT" ]
+then
+  write_var "DOCKER_MINIO_CONSOLE_PORT" "9001"
+  DOCKER_MINIO_CONSOLE_PORT="9001"
+else
+  write_var "DOCKER_MINIO_CONSOLE_PORT" $DOCKER_MINIO_CONSOLE_PORT
+fi
+
 echo -n "Minio URI [$APP_URI/minio] : "
 read DOCKER_MINIO_ENDPOINT
 if [ -z "$DOCKER_MINIO_ENDPOINT" ]
@@ -75,6 +85,16 @@ then
   DOCKER_MINIO_ENDPOINT="$APP_URI/minio"
 else
   write_var "DOCKER_MINIO_ENDPOINT" $DOCKER_MINIO_ENDPOINT
+fi
+
+echo -n "Minio public port [9000] : "
+read DOCKER_MINIO_ENDPOINT_PORT
+if [ -z "$DOCKER_MINIO_ENDPOINT_PORT" ]
+then
+  write_var "DOCKER_MINIO_ENDPOINT_PORT" "9000"
+  DOCKER_MINIO_ENDPOINT_PORT="9000"
+else
+  write_var "DOCKER_MINIO_ENDPOINT_PORT" $DOCKER_MINIO_ENDPOINT_PORT
 fi
 
 echo -n "Minio User [minio] : "

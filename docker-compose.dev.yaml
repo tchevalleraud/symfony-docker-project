@@ -51,6 +51,9 @@ services:
       MINIO_ROOT_USER: ${DOCKER_MINIO_KEY}
       MINIO_ROOT_PASSWORD: ${DOCKER_MINIO_SECRET}
     image: minio/minio
+    ports:
+      - "${DOCKER_MINIO_ENDPOINT_PORT}:9000"
+      - "${DOCKER_MINIO_CONSOLE_PORT}:9001"
     restart: unless-stopped
     volumes:
       - vdata_minio:/data
@@ -72,6 +75,8 @@ services:
     environment:
       PMA_ABSOLUTE_URI: ${DOCKER_DATABASE_URI}
       PMA_HOST: database
+      PMA_USER: root
+      PMA_PASSWORD: ${DOCKER_DATABASE_PASSWORD}
     image: phpmyadmin
     restart: always
   redis:
